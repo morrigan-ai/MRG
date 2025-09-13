@@ -1,6 +1,6 @@
 # 🪙 Morrigan Coin (MRG)
 
-![Morrigan Coin](./morrigan-coin.png)
+<img src="./morrigan-coin.png" alt="Morrigan Coin" width="250">
 
 **Morrigan Coin (MRG)** is a next-generation, GPU-mineable cryptocurrency built on a fork of **Ravencoin (KAWPOW algorithm)**.  
 It is designed for fairness, decentralization, and community-driven growth.  
