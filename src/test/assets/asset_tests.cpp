@@ -1,10 +1,10 @@
-// Copyright (c) 2017-2019 The Raven Core developers
+// Copyright (c) 2017-2019 The Morrigan Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <assets/assets.h>
 
-#include <test/test_raven.h>
+#include <test/test_morrigan.h>
 
 #include <boost/test/unit_test.hpp>
 #include "core_write.cpp"
@@ -47,20 +47,20 @@ BOOST_FIXTURE_TEST_SUITE(asset_tests, BasicTestingSetup)
         BOOST_CHECK(!IsAssetNameValid("A._BC", type));
         BOOST_CHECK(!IsAssetNameValid("AB_.C", type));
 
-        //- Versions of RAVENCOIN NOT allowed
-        BOOST_CHECK(!IsAssetNameValid("RVN", type));
-        BOOST_CHECK(!IsAssetNameValid("RAVEN", type));
-        BOOST_CHECK(!IsAssetNameValid("RAVENCOIN", type));
+        //- Versions of Morrigancoin NOT allowed
+        BOOST_CHECK(!IsAssetNameValid("MRG", type));
+        BOOST_CHECK(!IsAssetNameValid("MORRIGAN", type));
+        BOOST_CHECK(!IsAssetNameValid("Morrigancoin", type));
 
-        //- Versions of RAVENCOIN ALLOWED
-        BOOST_CHECK(IsAssetNameValid("RAVEN.COIN", type));
-        BOOST_CHECK(IsAssetNameValid("RAVEN_COIN", type));
-        BOOST_CHECK(IsAssetNameValid("RVNSPYDER", type));
-        BOOST_CHECK(IsAssetNameValid("SPYDERRVN", type));
-        BOOST_CHECK(IsAssetNameValid("RAVENSPYDER", type));
-        BOOST_CHECK(IsAssetNameValid("SPYDERAVEN", type));
-        BOOST_CHECK(IsAssetNameValid("BLACK_RAVENS", type));
-        BOOST_CHECK(IsAssetNameValid("SERVNOT", type));
+        //- Versions of Morrigancoin ALLOWED
+        BOOST_CHECK(IsAssetNameValid("MORRIGAN.COIN", type));
+        BOOST_CHECK(IsAssetNameValid("MORRIGAN_COIN", type));
+        BOOST_CHECK(IsAssetNameValid("MRGSPYDER", type));
+        BOOST_CHECK(IsAssetNameValid("SPYDERMRG", type));
+        BOOST_CHECK(IsAssetNameValid("MORRIGANSPYDER", type));
+        BOOST_CHECK(IsAssetNameValid("SPYDEMORRIGAN", type));
+        BOOST_CHECK(IsAssetNameValid("BLACK_MORRIGANS", type));
+        BOOST_CHECK(IsAssetNameValid("SEMRGOT", type));
 
         // subs
         BOOST_CHECK(IsAssetNameValid("ABC/A", type));
@@ -227,7 +227,7 @@ BOOST_FIXTURE_TEST_SUITE(asset_tests, BasicTestingSetup)
         SelectParams(CBaseChainParams::MAIN);
 
         // Create the asset scriptPubKey
-        CAssetTransfer asset("RAVEN", 1000);
+        CAssetTransfer asset("MORRIGAN", 1000);
         CScript scriptPubKey = GetScriptForDestination(DecodeDestination(GetParams().GlobalBurnAddress()));
         asset.ConstructTransaction(scriptPubKey);
 
@@ -248,7 +248,7 @@ BOOST_FIXTURE_TEST_SUITE(asset_tests, BasicTestingSetup)
         SelectParams(CBaseChainParams::MAIN);
 
         // Create the asset scriptPubKey
-        CNewAsset asset("RAVEN", 1000, 8, 1, 0, "");
+        CNewAsset asset("MORRIGAN", 1000, 8, 1, 0, "");
         CScript scriptPubKey = GetScriptForDestination(DecodeDestination(GetParams().GlobalBurnAddress()));
         asset.ConstructTransaction(scriptPubKey);
 

@@ -1,12 +1,12 @@
 // Copyright (c) 2011-2016 The Bitcoin Core developers
-// Copyright (c) 2017-2021 The Raven Core developers
+// Copyright (c) 2017-2021 The Morrigan Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "overviewpage.h"
 #include "ui_overviewpage.h"
 
-#include "ravenunits.h"
+#include "morriganunits.h"
 #include "clientmodel.h"
 #include "guiconstants.h"
 #include "guiutil.h"
@@ -46,7 +46,7 @@ class TxViewDelegate : public QAbstractItemDelegate
     Q_OBJECT
 public:
     explicit TxViewDelegate(const PlatformStyle *_platformStyle, QObject *parent=nullptr):
-        QAbstractItemDelegate(parent), unit(RavenUnits::RVN),
+        QAbstractItemDelegate(parent), unit(MorriganUnits::MRG),
         platformStyle(_platformStyle)
     {
 
@@ -155,7 +155,7 @@ class AssetViewDelegate : public QAbstractItemDelegate
 Q_OBJECT
 public:
     explicit AssetViewDelegate(const PlatformStyle *_platformStyle, QObject *parent=nullptr):
-            QAbstractItemDelegate(parent), unit(RavenUnits::RVN),
+            QAbstractItemDelegate(parent), unit(MorriganUnits::MRG),
             platformStyle(_platformStyle)
     {
 
@@ -299,7 +299,7 @@ public:
 
 };
 #include "overviewpage.moc"
-#include "ravengui.h"
+#include "morrigangui.h"
 #include <QFontDatabase>
 
 OverviewPage::OverviewPage(const PlatformStyle *platformStyle, QWidget *parent) :
@@ -368,7 +368,7 @@ OverviewPage::OverviewPage(const PlatformStyle *platformStyle, QWidget *parent) 
 
     /** Update the labels colors */
     ui->assetBalanceLabel->setStyleSheet(STRING_LABEL_COLOR);
-    ui->rvnBalancesLabel->setStyleSheet(STRING_LABEL_COLOR);
+    ui->MRGBalancesLabel->setStyleSheet(STRING_LABEL_COLOR);
     ui->labelBalanceText->setStyleSheet(STRING_LABEL_COLOR);
     ui->labelPendingText->setStyleSheet(STRING_LABEL_COLOR);
     ui->labelImmatureText->setStyleSheet(STRING_LABEL_COLOR);
@@ -378,7 +378,7 @@ OverviewPage::OverviewPage(const PlatformStyle *platformStyle, QWidget *parent) 
     ui->recentTransactionsLabel->setStyleSheet(STRING_LABEL_COLOR);
 
     /** Update the labels font */
-    ui->rvnBalancesLabel->setFont(GUIUtil::getTopLabelFont());
+    ui->MRGBalancesLabel->setFont(GUIUtil::getTopLabelFont());
     ui->assetBalanceLabel->setFont(GUIUtil::getTopLabelFont());
     ui->recentTransactionsLabel->setFont(GUIUtil::getTopLabelFont());
 
@@ -561,14 +561,14 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     currentWatchOnlyBalance = watchOnlyBalance;
     currentWatchUnconfBalance = watchUnconfBalance;
     currentWatchImmatureBalance = watchImmatureBalance;
-    ui->labelBalance->setText(RavenUnits::formatWithUnit(unit, balance, false, RavenUnits::separatorAlways));
-    ui->labelUnconfirmed->setText(RavenUnits::formatWithUnit(unit, unconfirmedBalance, false, RavenUnits::separatorAlways));
-    ui->labelImmature->setText(RavenUnits::formatWithUnit(unit, immatureBalance, false, RavenUnits::separatorAlways));
-    ui->labelTotal->setText(RavenUnits::formatWithUnit(unit, balance + unconfirmedBalance + immatureBalance, false, RavenUnits::separatorAlways));
-    ui->labelWatchAvailable->setText(RavenUnits::formatWithUnit(unit, watchOnlyBalance, false, RavenUnits::separatorAlways));
-    ui->labelWatchPending->setText(RavenUnits::formatWithUnit(unit, watchUnconfBalance, false, RavenUnits::separatorAlways));
-    ui->labelWatchImmature->setText(RavenUnits::formatWithUnit(unit, watchImmatureBalance, false, RavenUnits::separatorAlways));
-    ui->labelWatchTotal->setText(RavenUnits::formatWithUnit(unit, watchOnlyBalance + watchUnconfBalance + watchImmatureBalance, false, RavenUnits::separatorAlways));
+    ui->labelBalance->setText(MorriganUnits::formatWithUnit(unit, balance, false, MorriganUnits::separatorAlways));
+    ui->labelUnconfirmed->setText(MorriganUnits::formatWithUnit(unit, unconfirmedBalance, false, MorriganUnits::separatorAlways));
+    ui->labelImmature->setText(MorriganUnits::formatWithUnit(unit, immatureBalance, false, MorriganUnits::separatorAlways));
+    ui->labelTotal->setText(MorriganUnits::formatWithUnit(unit, balance + unconfirmedBalance + immatureBalance, false, MorriganUnits::separatorAlways));
+    ui->labelWatchAvailable->setText(MorriganUnits::formatWithUnit(unit, watchOnlyBalance, false, MorriganUnits::separatorAlways));
+    ui->labelWatchPending->setText(MorriganUnits::formatWithUnit(unit, watchUnconfBalance, false, MorriganUnits::separatorAlways));
+    ui->labelWatchImmature->setText(MorriganUnits::formatWithUnit(unit, watchImmatureBalance, false, MorriganUnits::separatorAlways));
+    ui->labelWatchTotal->setText(MorriganUnits::formatWithUnit(unit, watchOnlyBalance + watchUnconfBalance + watchImmatureBalance, false, MorriganUnits::separatorAlways));
 
     // only show immature (newly mined) balance if it's non-zero, so as not to complicate things
     // for the non-mining users
@@ -644,7 +644,7 @@ void OverviewPage::setWalletModel(WalletModel *model)
         connect(model, SIGNAL(notifyWatchonlyChanged(bool)), this, SLOT(updateWatchOnlyLabels(bool)));
     }
 
-    // update the display unit, to not use the default ("RVN")
+    // update the display unit, to not use the default ("MRG")
     updateDisplayUnit();
 }
 
@@ -693,7 +693,7 @@ void OverviewPage::showAssets()
         ui->assetBalanceLabel->hide();
         ui->labelAssetStatus->hide();
 
-        // This keeps the RVN balance grid from expanding and looking terrible when asset balance is hidden
+        // This keeps the MRG balance grid from expanding and looking terrible when asset balance is hidden
         ui->assetVerticalSpaceWidget->show();
         ui->assetVerticalSpaceWidget2->show();
     }

@@ -1,36 +1,36 @@
 #!/bin/bash
 #
-#  ravend The raven core server.
+#  morrigand The morrigan core server.
 #
 #
 # chkconfig: 345 80 20
-# description: ravend
-# processname: ravend
+# description: morrigand
+# processname: morrigand
 #
 
 # Source function library.
 . /etc/init.d/functions
 
-# you can override defaults in /etc/sysconfig/ravend, see below
-if [ -f /etc/sysconfig/ravend ]; then
-        . /etc/sysconfig/ravend
+# you can override defaults in /etc/sysconfig/morrigand, see below
+if [ -f /etc/sysconfig/morrigand ]; then
+        . /etc/sysconfig/morrigand
 fi
 
 RETVAL=0
 
-prog=ravend
-# you can override the lockfile via RAVEND_LOCKFILE in /etc/sysconfig/ravend
-lockfile=${RAVEND_LOCKFILE-/var/lock/subsys/ravend}
+prog=morrigand
+# you can override the lockfile via MORRIGAND_LOCKFILE in /etc/sysconfig/morrigand
+lockfile=${MORRIGAND_LOCKFILE-/var/lock/subsys/morrigand}
 
-# ravend defaults to /usr/bin/ravend, override with RAVEND_BIN
-ravend=${RAVEND_BIN-/usr/bin/ravend}
+# morrigand defaults to /usr/bin/morrigand, override with MORRIGAND_BIN
+morrigand=${MORRIGAND_BIN-/usr/bin/morrigand}
 
-# ravend opts default to -disablewallet, override with RAVEND_OPTS
-ravend_opts=${RAVEND_OPTS--disablewallet}
+# morrigand opts default to -disablewallet, override with MORRIGAND_OPTS
+morrigand_opts=${MORRIGAND_OPTS--disablewallet}
 
 start() {
     echo -n $"Starting $prog: "
-    daemon $DAEMONOPTS $ravend $ravend_opts
+    daemon $DAEMONOPTS $morrigand $morrigand_opts
     RETVAL=$?
     echo
     [ $RETVAL -eq 0 ] && touch $lockfile

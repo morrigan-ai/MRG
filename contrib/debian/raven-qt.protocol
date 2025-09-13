@@ -1,6 +1,6 @@
 [Protocol]
-exec=raven-qt '%u'
-protocol=raven
+exec=morrigan-qt '%u'
+protocol=morrigan
 input=none
 output=none
 helper=true

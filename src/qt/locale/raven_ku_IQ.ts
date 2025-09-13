@@ -245,7 +245,7 @@
     </message>
     </context>
 <context>
-    <name>RavenGUI</name>
+    <name>MorriganGUI</name>
     <message>
         <source>&amp;Send</source>
         <translation>&amp;ناردن</translation>
@@ -407,7 +407,7 @@
     </message>
     </context>
 <context>
-    <name>raven-core</name>
+    <name>morrigan-core</name>
     <message>
         <source>Options:</source>
         <translation>هەڵبژاردنەکان:</translation>

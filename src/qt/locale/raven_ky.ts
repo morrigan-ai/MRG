@@ -193,7 +193,7 @@
     </message>
     </context>
 <context>
-    <name>RavenGUI</name>
+    <name>MorriganGUI</name>
     <message>
         <source>&amp;Transactions</source>
         <translation>&amp;Транзакциялар</translation>
@@ -203,8 +203,8 @@
         <translation>Билдирүүнү &amp;текшерүү...</translation>
     </message>
     <message>
-        <source>Raven</source>
-        <translation>Raven</translation>
+        <source>Morrigan</source>
+        <translation>Morrigan</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -379,7 +379,7 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>raven-core</name>
+    <name>morrigan-core</name>
     <message>
         <source>Information</source>
         <translation>Маалымат</translation>

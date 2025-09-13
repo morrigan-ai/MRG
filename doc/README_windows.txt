@@ -1,9 +1,9 @@
-Raven Core
+Morrigan Core
 =============
 
 Intro
 -----
-Raven is a free open source peer-to-peer electronic cash system that is
+Morrigan is a free open source peer-to-peer electronic cash system that is
 completely decentralized, without the need for a central server or trusted
 parties.  Users hold the crypto keys to their own money and transact directly
 with each other, with the help of a P2P network to check for double-spending.
@@ -11,13 +11,13 @@ with each other, with the help of a P2P network to check for double-spending.
 
 Setup
 -----
-Unpack the files into a directory and run raven-qt.exe.
+Unpack the files into a directory and run morrigan-qt.exe.
 
-Raven Core is the original Raven client and it builds the backbone of the network.
-However, it downloads and stores the entire history of Raven transactions;
+Morrigan Core is the original Morrigan client and it builds the backbone of the network.
+However, it downloads and stores the entire history of Morrigan transactions;
 depending on the speed of your computer and network connection, the synchronization
 process can take anywhere from a few hours to a day or more.
 
-See the raven wiki at:
-  https://raven.wiki/wiki/Ravencoin_Wiki
+See the morrigan wiki at:
+  https://morrigan.wiki/wiki/Morrigancoin_Wiki
 for more help and information.

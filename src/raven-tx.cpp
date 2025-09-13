@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2016 The Bitcoin Core developers
-// Copyright (c) 2017-2019 The Raven Core developers
+// Copyright (c) 2017-2019 The Morrigan Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/raven-config.h"
+#include "config/morrigan-config.h"
 #endif
 
 #include "base58.h"
@@ -55,10 +55,10 @@ static int AppInitRawTx(int argc, char* argv[])
     if (argc<2 || gArgs.IsArgSet("-?") || gArgs.IsArgSet("-h") || gArgs.IsArgSet("-help"))
     {
         // First part of help message is specific to this utility
-        std::string strUsage = strprintf(_("%s raven-tx utility version"), _(PACKAGE_NAME)) + " " + FormatFullVersion() + "\n\n" +
+        std::string strUsage = strprintf(_("%s morrigan-tx utility version"), _(PACKAGE_NAME)) + " " + FormatFullVersion() + "\n\n" +
             _("Usage:") + "\n" +
-              "  raven-tx [options] <hex-tx> [commands]  " + _("Update hex-encoded raven transaction") + "\n" +
-              "  raven-tx [options] -create [commands]   " + _("Create hex-encoded raven transaction") + "\n" +
+              "  morrigan-tx [options] <hex-tx> [commands]  " + _("Update hex-encoded morrigan transaction") + "\n" +
+              "  morrigan-tx [options] -create [commands]   " + _("Create hex-encoded morrigan transaction") + "\n" +
               "\n";
 
         fprintf(stdout, "%s", strUsage.c_str());
@@ -559,7 +559,7 @@ static void MutateTxSign(CMutableTransaction& tx, const std::string& flagStr)
     for (unsigned int kidx = 0; kidx < keysObj.size(); kidx++) {
         if (!keysObj[kidx].isStr())
             throw std::runtime_error("privatekey not a std::string");
-        CRavenSecret vchSecret;
+        CMorriganSecret vchSecret;
         bool fGood = vchSecret.SetString(keysObj[kidx].getValStr());
         if (!fGood)
             throw std::runtime_error("privatekey not valid");
@@ -797,7 +797,7 @@ static int CommandLineRawTx(int argc, char* argv[])
             if (argc < 2)
                 throw std::runtime_error("too few parameters");
 
-            // param: hex-encoded raven transaction
+            // param: hex-encoded morrigan transaction
             std::string strHexTx(argv[1]);
             if (strHexTx == "-")                 // "-" implies standard input
                 strHexTx = readStdin();

@@ -401,7 +401,7 @@
     </message>
     </context>
 <context>
-    <name>RavenGUI</name>
+    <name>MorriganGUI</name>
     <message>
         <source>Synchronizing with network...</source>
         <translation>Võrguga sünkroniseerimine...</translation>
@@ -427,8 +427,8 @@
         <translation>Kõvakettal olevate plokkide reindekseerimine...</translation>
     </message>
     <message>
-        <source>Raven</source>
-        <translation>Raven</translation>
+        <source>Morrigan</source>
+        <translation>Morrigan</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -787,14 +787,14 @@
     </message>
     </context>
 <context>
-    <name>raven-core</name>
+    <name>morrigan-core</name>
     <message>
         <source>Options:</source>
         <translation>Valikud:</translation>
     </message>
     <message>
-        <source>Raven Core</source>
-        <translation>Raven Core</translation>
+        <source>Morrigan Core</source>
+        <translation>Morrigan Core</translation>
     </message>
     <message>
         <source>Information</source>

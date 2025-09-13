@@ -1,13 +1,13 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=Raven Core
-Comment=Connect to the Raven P2P Network
-Comment[de]=Verbinde mit dem Raven peer-to-peer Netzwerk
-Comment[fr]=Raven, monnaie virtuelle cryptographique pair à pair
-Comment[tr]=Raven, eşten eşe kriptografik sanal para birimi
-Exec=raven-qt %u
+Name=Morrigan Core
+Comment=Connect to the Morrigan P2P Network
+Comment[de]=Verbinde mit dem Morrigan peer-to-peer Netzwerk
+Comment[fr]=Morrigan, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Morrigan, eşten eşe kriptografik sanal para birimi
+Exec=morrigan-qt %u
 Terminal=false
 Type=Application
-Icon=raven128
-MimeType=x-scheme-handler/raven;
+Icon=morrigan128
+MimeType=x-scheme-handler/morrigan;
 Categories=Office;Finance;

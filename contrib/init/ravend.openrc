@@ -2,41 +2,41 @@
 
 # backward compatibility for existing gentoo layout 
 #
-if [ -d "/var/lib/raven/.raven" ]; then
-	RAVEND_DEFAULT_DATADIR="/var/lib/raven/.raven"
+if [ -d "/var/lib/morrigan/.morrigan" ]; then
+	MORRIGAND_DEFAULT_DATADIR="/var/lib/morrigan/.morrigan"
 else
-	RAVEND_DEFAULT_DATADIR="/var/lib/ravend"
+	MORRIGAND_DEFAULT_DATADIR="/var/lib/morrigand"
 fi
 
-RAVEND_CONFIGFILE=${RAVEND_CONFIGFILE:-/etc/raven/raven.conf}
-RAVEND_PIDDIR=${RAVEND_PIDDIR:-/var/run/ravend}
-RAVEND_PIDFILE=${RAVEND_PIDFILE:-${RAVEND_PIDDIR}/ravend.pid}
-RAVEND_DATADIR=${RAVEND_DATADIR:-${RAVEND_DEFAULT_DATADIR}}
-RAVEND_USER=${RAVEND_USER:-${RAVEN_USER:-raven}}
-RAVEND_GROUP=${RAVEND_GROUP:-raven}
-RAVEND_BIN=${RAVEND_BIN:-/usr/bin/ravend}
-RAVEND_NICE=${RAVEND_NICE:-${NICELEVEL:-0}}
-RAVEND_OPTS="${RAVEND_OPTS:-${RAVEN_OPTS}}"
+MORRIGAND_CONFIGFILE=${MORRIGAND_CONFIGFILE:-/etc/morrigan/morrigan.conf}
+MORRIGAND_PIDDIR=${MORRIGAND_PIDDIR:-/var/run/morrigand}
+MORRIGAND_PIDFILE=${MORRIGAND_PIDFILE:-${MORRIGAND_PIDDIR}/morrigand.pid}
+MORRIGAND_DATADIR=${MORRIGAND_DATADIR:-${MORRIGAND_DEFAULT_DATADIR}}
+MORRIGAND_USER=${MORRIGAND_USER:-${MORRIGAN_USER:-morrigan}}
+MORRIGAND_GROUP=${MORRIGAND_GROUP:-morrigan}
+MORRIGAND_BIN=${MORRIGAND_BIN:-/usr/bin/morrigand}
+MORRIGAND_NICE=${MORRIGAND_NICE:-${NICELEVEL:-0}}
+MORRIGAND_OPTS="${MORRIGAND_OPTS:-${MORRIGAN_OPTS}}"
 
-name="Raven Core Daemon"
-description="Raven cryptocurrency P2P network daemon"
+name="Morrigan Core Daemon"
+description="Morrigan cryptocurrency P2P network daemon"
 
-command="/usr/bin/ravend"
-command_args="-pid=\"${RAVEND_PIDFILE}\" \
-		-conf=\"${RAVEND_CONFIGFILE}\" \
-		-datadir=\"${RAVEND_DATADIR}\" \
+command="/usr/bin/morrigand"
+command_args="-pid=\"${MORRIGAND_PIDFILE}\" \
+		-conf=\"${MORRIGAND_CONFIGFILE}\" \
+		-datadir=\"${MORRIGAND_DATADIR}\" \
 		-daemon \
-		${RAVEND_OPTS}"
+		${MORRIGAND_OPTS}"
 
-required_files="${RAVEND_CONFIGFILE}"
-start_stop_daemon_args="-u ${RAVEND_USER} \
-			-N ${RAVEND_NICE} -w 2000"
-pidfile="${RAVEND_PIDFILE}"
+required_files="${MORRIGAND_CONFIGFILE}"
+start_stop_daemon_args="-u ${MORRIGAND_USER} \
+			-N ${MORRIGAND_NICE} -w 2000"
+pidfile="${MORRIGAND_PIDFILE}"
 
 # The retry schedule to use when stopping the daemon. Could be either
 # a timeout in seconds or multiple signal/timeout pairs (like
 # "SIGKILL/180 SIGTERM/300")
-retry="${RAVEND_SIGTERM_TIMEOUT}"
+retry="${MORRIGAND_SIGTERM_TIMEOUT}"
 
 depend() {
 	need localmount net
@@ -50,29 +50,29 @@ start_pre() {
 	checkpath \
 	-d \
 	--mode 0750 \
-	--owner "${RAVEND_USER}:${RAVEND_GROUP}" \
-	"${RAVEND_DATADIR}"
+	--owner "${MORRIGAND_USER}:${MORRIGAND_GROUP}" \
+	"${MORRIGAND_DATADIR}"
 
 	checkpath \
 	-d \
 	--mode 0755 \
-	--owner "${RAVEND_USER}:${RAVEND_GROUP}" \
-	"${RAVEND_PIDDIR}"
+	--owner "${MORRIGAND_USER}:${MORRIGAND_GROUP}" \
+	"${MORRIGAND_PIDDIR}"
 
 	checkpath -f \
-	-o ${RAVEND_USER}:${RAVEND_GROUP} \
+	-o ${MORRIGAND_USER}:${MORRIGAND_GROUP} \
 	-m 0660 \
-	${RAVEND_CONFIGFILE}
+	${MORRIGAND_CONFIGFILE}
 
 	checkconfig || return 1
 }
 
 checkconfig()
 {
-	if ! grep -qs '^rpcpassword=' "${RAVEND_CONFIGFILE}" ; then
+	if ! grep -qs '^rpcpassword=' "${MORRIGAND_CONFIGFILE}" ; then
 		eerror ""
-		eerror "ERROR: You must set a secure rpcpassword to run ravend."
-		eerror "The setting must appear in ${RAVEND_CONFIGFILE}"
+		eerror "ERROR: You must set a secure rpcpassword to run morrigand."
+		eerror "The setting must appear in ${MORRIGAND_CONFIGFILE}"
 		eerror ""
 		eerror "This password is security critical to securing wallets "
 		eerror "and must not be the same as the rpcuser setting."
@@ -84,7 +84,7 @@ checkconfig()
 		eerror "It is recommended that you also set alertnotify so you are "
 		eerror "notified of problems:"
 		eerror ""
-		eerror "ie: alertnotify=echo %%s | mail -s \"Raven Alert\"" \
+		eerror "ie: alertnotify=echo %%s | mail -s \"Morrigan Alert\"" \
 			"admin@foo.com"
 		eerror ""
 		return 1

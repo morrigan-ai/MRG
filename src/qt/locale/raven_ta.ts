@@ -421,7 +421,7 @@
     </message>
 </context>
 <context>
-    <name>RavenGUI</name>
+    <name>MorriganGUI</name>
     <message>
         <source>&amp;Overview</source>
         <translation>&amp;கண்ணோட்டம்</translation>
@@ -459,8 +459,8 @@
         <translation>&amp;செய்தியை சரிசெய்...</translation>
     </message>
     <message>
-        <source>Raven</source>
-        <translation>Raven</translation>
+        <source>Morrigan</source>
+        <translation>Morrigan</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -715,10 +715,10 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>raven-core</name>
+    <name>morrigan-core</name>
     <message>
-        <source>Raven Core</source>
-        <translation>Raven மையம்</translation>
+        <source>Morrigan Core</source>
+        <translation>Morrigan மையம்</translation>
     </message>
     <message>
         <source>(default: %u)</source>

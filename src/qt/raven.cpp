@@ -1,13 +1,13 @@
 // Copyright (c) 2011-2016 The Bitcoin Core developers
-// Copyright (c) 2017-2021 The Raven Core developers
+// Copyright (c) 2017-2021 The Morrigan Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/raven-config.h"
+#include "config/morrigan-config.h"
 #endif
 
-#include "ravengui.h"
+#include "morrigangui.h"
 
 #include "chainparams.h"
 #include "clientmodel.h"
@@ -99,7 +99,7 @@ static void InitMessage(const std::string &message)
  */
 static std::string Translate(const char* psz)
 {
-    return QCoreApplication::translate("raven-core", psz).toStdString();
+    return QCoreApplication::translate("morrigan-core", psz).toStdString();
 }
 
 static QString GetLangTerritory()
@@ -146,11 +146,11 @@ static void initTranslations(QTranslator &qtTranslatorBase, QTranslator &qtTrans
     if (qtTranslator.load("qt_" + lang_territory, QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
         QApplication::installTranslator(&qtTranslator);
 
-    // Load e.g. raven_de.qm (shortcut "de" needs to be defined in raven.qrc)
+    // Load e.g. morrigan_de.qm (shortcut "de" needs to be defined in morrigan.qrc)
     if (translatorBase.load(lang, ":/translations/"))
         QApplication::installTranslator(&translatorBase);
 
-    // Load e.g. raven_de_DE.qm (shortcut "de_DE" needs to be defined in raven.qrc)
+    // Load e.g. morrigan_de_DE.qm (shortcut "de_DE" needs to be defined in morrigan.qrc)
     if (translator.load(lang_territory, ":/translations/"))
         QApplication::installTranslator(&translator);
 }
@@ -177,14 +177,14 @@ void DebugMessageHandler(QtMsgType type, const QMessageLogContext& context, cons
 }
 #endif
 
-/** Class encapsulating Raven Core startup and shutdown.
+/** Class encapsulating Morrigan Core startup and shutdown.
  * Allows running startup and shutdown in a different thread from the UI thread.
  */
-class RavenCore: public QObject
+class MorriganCore: public QObject
 {
     Q_OBJECT
 public:
-    explicit RavenCore();
+    explicit MorriganCore();
     /** Basic initialization, before starting initialization/shutdown thread.
      * Return true on success.
      */
@@ -208,13 +208,13 @@ private:
     void handleRunawayException(const std::exception *e);
 };
 
-/** Main Raven application object */
-class RavenApplication: public QApplication
+/** Main Morrigan application object */
+class MorriganApplication: public QApplication
 {
     Q_OBJECT
 public:
-    explicit RavenApplication();
-    ~RavenApplication();
+    explicit MorriganApplication();
+    ~MorriganApplication();
 
 #ifdef ENABLE_WALLET
     /// Create payment server
@@ -237,7 +237,7 @@ public:
     /// Get process return value
     int getReturnValue() const { return returnValue; }
 
-    /// Get window identifier of QMainWindow (RavenGUI)
+    /// Get window identifier of QMainWindow (MorriganGUI)
     WId getMainWinId() const;
 
     OptionsModel* getOptionsModel() const { return optionsModel; }
@@ -259,7 +259,7 @@ private:
     QThread *coreThread;
     OptionsModel *optionsModel;
     ClientModel *clientModel;
-    RavenGUI *window;
+    MorriganGUI *window;
     QTimer *pollShutdownTimer;
 #ifdef ENABLE_WALLET
     PaymentServer* paymentServer;
@@ -272,20 +272,20 @@ private:
     void startThread();
 };
 
-#include "raven.moc"
+#include "morrigan.moc"
 
-RavenCore::RavenCore():
+MorriganCore::MorriganCore():
     QObject()
 {
 }
 
-void RavenCore::handleRunawayException(const std::exception *e)
+void MorriganCore::handleRunawayException(const std::exception *e)
 {
     PrintExceptionContinue(e, "Runaway exception");
     Q_EMIT runawayException(QString::fromStdString(GetWarnings("gui")));
 }
 
-bool RavenCore::baseInitialize()
+bool MorriganCore::baseInitialize()
 {
     if (!AppInitBasicSetup())
     {
@@ -306,7 +306,7 @@ bool RavenCore::baseInitialize()
     return true;
 }
 
-void RavenCore::initialize()
+void MorriganCore::initialize()
 {
     try
     {
@@ -320,7 +320,7 @@ void RavenCore::initialize()
     }
 }
 
-void RavenCore::restart(QStringList args)
+void MorriganCore::restart(QStringList args)
 {
     static bool executing_restart{false};
 
@@ -347,7 +347,7 @@ void RavenCore::restart(QStringList args)
     }
 }
 
-void RavenCore::shutdown()
+void MorriganCore::shutdown()
 {
     try
     {
@@ -365,9 +365,9 @@ void RavenCore::shutdown()
 }
 
 static int qt_argc = 1;
-static const char* qt_argv = "raven-qt";
+static const char* qt_argv = "morrigan-qt";
 
-RavenApplication::RavenApplication():
+MorriganApplication::MorriganApplication():
     QApplication(qt_argc, const_cast<char **>(&qt_argv)),
     coreThread(0),
     optionsModel(0),
@@ -383,17 +383,17 @@ RavenApplication::RavenApplication():
     setQuitOnLastWindowClosed(false);
 
     // UI per-platform customization
-    // This must be done inside the RavenApplication constructor, or after it, because
+    // This must be done inside the MorriganApplication constructor, or after it, because
     // PlatformStyle::instantiate requires a QApplication
     std::string platformName;
-    platformName = gArgs.GetArg("-uiplatform", RavenGUI::DEFAULT_UIPLATFORM);
+    platformName = gArgs.GetArg("-uiplatform", MorriganGUI::DEFAULT_UIPLATFORM);
     platformStyle = PlatformStyle::instantiate(QString::fromStdString(platformName));
     if (!platformStyle) // Fall back to "other" if specified name not found
         platformStyle = PlatformStyle::instantiate("other");
     assert(platformStyle);
 }
 
-RavenApplication::~RavenApplication()
+MorriganApplication::~MorriganApplication()
 {
     if(coreThread)
     {
@@ -416,20 +416,20 @@ RavenApplication::~RavenApplication()
 }
 
 #ifdef ENABLE_WALLET
-void RavenApplication::createPaymentServer()
+void MorriganApplication::createPaymentServer()
 {
     paymentServer = new PaymentServer(this);
 }
 #endif
 
-void RavenApplication::createOptionsModel(bool resetSettings)
+void MorriganApplication::createOptionsModel(bool resetSettings)
 {
     optionsModel = new OptionsModel(nullptr, resetSettings);
 }
 
-void RavenApplication::createWindow(const NetworkStyle *networkStyle)
+void MorriganApplication::createWindow(const NetworkStyle *networkStyle)
 {
-    window = new RavenGUI(platformStyle, networkStyle, 0);
+    window = new MorriganGUI(platformStyle, networkStyle, 0);
     window->setMinimumSize(1024,700);
     window->setBaseSize(1024,700);
 
@@ -438,7 +438,7 @@ void RavenApplication::createWindow(const NetworkStyle *networkStyle)
     pollShutdownTimer->start(200);
 }
 
-void RavenApplication::createSplashScreen(const NetworkStyle *networkStyle)
+void MorriganApplication::createSplashScreen(const NetworkStyle *networkStyle)
 {
     SplashScreen *splash = new SplashScreen(networkStyle);
     // We don't hold a direct pointer to the splash screen after creation, but the splash
@@ -448,12 +448,12 @@ void RavenApplication::createSplashScreen(const NetworkStyle *networkStyle)
     connect(this, SIGNAL(requestedShutdown()), splash, SLOT(close()));
 }
 
-void RavenApplication::startThread()
+void MorriganApplication::startThread()
 {
     if(coreThread)
         return;
     coreThread = new QThread(this);
-    RavenCore *executor = new RavenCore();
+    MorriganCore *executor = new MorriganCore();
     executor->moveToThread(coreThread);
 
     /*  communication to and from thread */
@@ -470,20 +470,20 @@ void RavenApplication::startThread()
     coreThread->start();
 }
 
-void RavenApplication::parameterSetup()
+void MorriganApplication::parameterSetup()
 {
     InitLogging();
     InitParameterInteraction();
 }
 
-void RavenApplication::requestInitialize()
+void MorriganApplication::requestInitialize()
 {
     qDebug() << __func__ << ": Requesting initialize";
     startThread();
     Q_EMIT requestedInitialize();
 }
 
-void RavenApplication::requestShutdown()
+void MorriganApplication::requestShutdown()
 {
     // Show a simple window indicating shutdown status
     // Do this first as some of the steps may take some time below,
@@ -510,7 +510,7 @@ void RavenApplication::requestShutdown()
     Q_EMIT requestedShutdown();
 }
 
-void RavenApplication::initializeResult(bool success)
+void MorriganApplication::initializeResult(bool success)
 {
     qDebug() << __func__ << ": Initialization result: " << success;
     // Set exit result.
@@ -533,8 +533,8 @@ void RavenApplication::initializeResult(bool success)
         {
             walletModel = new WalletModel(platformStyle, vpwallets[0], optionsModel);
 
-            window->addWallet(RavenGUI::DEFAULT_WALLET, walletModel);
-            window->setCurrentWallet(RavenGUI::DEFAULT_WALLET);
+            window->addWallet(MorriganGUI::DEFAULT_WALLET, walletModel);
+            window->setCurrentWallet(MorriganGUI::DEFAULT_WALLET);
 
             connect(walletModel, SIGNAL(coinsSent(CWallet*,SendCoinsRecipient,QByteArray)),
                              paymentServer, SLOT(fetchPaymentACK(CWallet*,const SendCoinsRecipient&,QByteArray)));
@@ -554,7 +554,7 @@ void RavenApplication::initializeResult(bool success)
 
 #ifdef ENABLE_WALLET
         // Now that initialization/startup is done, process any command-line
-        // raven: URIs or payment requests:
+        // morrigan: URIs or payment requests:
         connect(paymentServer, SIGNAL(receivedPaymentRequest(SendCoinsRecipient)),
                          window, SLOT(handlePaymentRequest(SendCoinsRecipient)));
         connect(window, SIGNAL(receivedURI(QString)),
@@ -568,20 +568,20 @@ void RavenApplication::initializeResult(bool success)
     }
 }
 
-void RavenApplication::shutdownResult(bool success)
+void MorriganApplication::shutdownResult(bool success)
 {
     returnValue = success ? EXIT_SUCCESS : EXIT_FAILURE;
     qDebug() << __func__ << ": Shutdown result: " << returnValue;
     quit(); // Exit main loop after shutdown finished
 }
 
-void RavenApplication::handleRunawayException(const QString &message)
+void MorriganApplication::handleRunawayException(const QString &message)
 {
-    QMessageBox::critical(0, "Runaway exception", RavenGUI::tr("A fatal error occurred. Raven can no longer continue safely and will quit.") + QString("\n\n") + message);
+    QMessageBox::critical(0, "Runaway exception", MorriganGUI::tr("A fatal error occurred. Morrigan can no longer continue safely and will quit.") + QString("\n\n") + message);
     ::exit(EXIT_FAILURE);
 }
 
-WId RavenApplication::getMainWinId() const
+WId MorriganApplication::getMainWinId() const
 {
     if (!window)
         return 0;
@@ -589,7 +589,7 @@ WId RavenApplication::getMainWinId() const
     return window->winId();
 }
 
-#ifndef RAVEN_QT_TEST
+#ifndef MORRIGAN_QT_TEST
 int main(int argc, char *argv[])
 {
     SetupEnvironment();
@@ -607,8 +607,8 @@ int main(int argc, char *argv[])
     QTextCodec::setCodecForCStrings(QTextCodec::codecForTr());
 #endif
 
-    Q_INIT_RESOURCE(raven);
-    Q_INIT_RESOURCE(raven_locale);
+    Q_INIT_RESOURCE(morrigan);
+    Q_INIT_RESOURCE(morrigan_locale);
 
 #if QT_VERSION > 0x050600
     // Generate high-dpi pixmaps
@@ -628,7 +628,7 @@ int main(int argc, char *argv[])
 #endif
 
     // This should be after the attributes.
-    RavenApplication app;
+    MorriganApplication app;
 
     // Register meta types used for QMetaObject::invokeMethod
     qRegisterMetaType< bool* >();
@@ -665,7 +665,7 @@ int main(int argc, char *argv[])
     if (!Intro::pickDataDirectory())
         return EXIT_SUCCESS;
 
-    /// 6. Determine availability of data directory and parse raven.conf
+    /// 6. Determine availability of data directory and parse morrigan.conf
     /// - Do not call GetDataDir(true) before this step finishes
     if (!fs::is_directory(GetDataDir(false)))
     {
@@ -674,7 +674,7 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
     try {
-        gArgs.ReadConfigFile(gArgs.GetArg("-conf", RAVEN_CONF_FILENAME));
+        gArgs.ReadConfigFile(gArgs.GetArg("-conf", MORRIGAN_CONF_FILENAME));
     } catch (const std::exception& e) {
         QMessageBox::critical(0, QObject::tr(PACKAGE_NAME),
                               QObject::tr("Error: Cannot parse configuration file: %1. Only use key=value syntax.").arg(e.what()));
@@ -717,7 +717,7 @@ int main(int argc, char *argv[])
         exit(EXIT_SUCCESS);
 
     // Start up the payment server early, too, so impatient users that click on
-    // raven: links repeatedly have their payment requests routed to this process:
+    // morrigan: links repeatedly have their payment requests routed to this process:
     app.createPaymentServer();
 #endif
 
@@ -760,7 +760,7 @@ int main(int argc, char *argv[])
         // Perform base initialization before spinning up initialization/shutdown thread
         // This is acceptable because this function only contains steps that are quick to execute,
         // so the GUI thread won't be held up.
-        if (RavenCore::baseInitialize()) {
+        if (MorriganCore::baseInitialize()) {
             app.requestInitialize();
 #if defined(Q_OS_WIN) && QT_VERSION >= 0x050000
             WinShutdownMonitor::registerShutdownBlockReason(QObject::tr("%1 didn't yet exit safely...").arg(QObject::tr(PACKAGE_NAME)), (HWND)app.getMainWinId());
@@ -782,4 +782,4 @@ int main(int argc, char *argv[])
     }
     return rv;
 }
-#endif // RAVEN_QT_TEST
+#endif // MORRIGAN_QT_TEST

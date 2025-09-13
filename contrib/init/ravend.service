@@ -1,15 +1,15 @@
 [Unit]
-Description=Raven's distributed currency daemon
+Description=Morrigan's distributed currency daemon
 After=network.target
 
 [Service]
-User=raven
-Group=raven
+User=morrigan
+Group=morrigan
 
 Type=forking
-PIDFile=/var/lib/ravend/ravend.pid
-ExecStart=/usr/bin/ravend -daemon -pid=/var/lib/ravend/ravend.pid \
--conf=/etc/raven/raven.conf -datadir=/var/lib/ravend -disablewallet
+PIDFile=/var/lib/morrigand/morrigand.pid
+ExecStart=/usr/bin/morrigand -daemon -pid=/var/lib/morrigand/morrigand.pid \
+-conf=/etc/morrigan/morrigan.conf -datadir=/var/lib/morrigand -disablewallet
 
 Restart=always
 PrivateTmp=true

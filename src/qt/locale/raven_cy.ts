@@ -233,7 +233,7 @@
     </message>
     </context>
 <context>
-    <name>RavenGUI</name>
+    <name>MorriganGUI</name>
     <message>
         <source>Synchronizing with network...</source>
         <translation>Cysoni â'r rhwydwaith...</translation>
@@ -295,8 +295,8 @@
         <translation>Newid y cyfrinymadrodd a ddefnyddiwyd ar gyfer amgryptio'r waled</translation>
     </message>
     <message>
-        <source>Raven</source>
-        <translation>Raven</translation>
+        <source>Morrigan</source>
+        <translation>Morrigan</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -515,14 +515,14 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>raven-core</name>
+    <name>morrigan-core</name>
     <message>
         <source>Options:</source>
         <translation>Opsiynau:</translation>
     </message>
     <message>
-        <source>Raven Core</source>
-        <translation>Craidd Raven</translation>
+        <source>Morrigan Core</source>
+        <translation>Craidd Morrigan</translation>
     </message>
     <message>
         <source>Information</source>
