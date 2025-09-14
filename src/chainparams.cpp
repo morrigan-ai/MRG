@@ -181,7 +181,7 @@ public:
         nDefaultPort = 8767;
         nPruneAfterHeight = 100000;
 
-        genesis = CreateGenesisBlock(1514999494, 25023712, 0x1e00ffff, 4, 10000 * COIN);
+        genesis = CreateGenesisBlock(1758362400, 25023712, 0x1e00ffff, 4, 10000 * COIN);
 
         consensus.hashGenesisBlock = genesis.GetX16RHash();
 
@@ -341,7 +341,7 @@ public:
         nDefaultPort = 18770;
         nPruneAfterHeight = 1000;
 
-        uint32_t nGenesisTime = 1537466400;  // Thursday, September 20, 2018 12:00:00 PM GMT-06:00
+        uint32_t nGenesisTime = 1726272000;  // Thursday, September 20, 2018 12:00:00 PM GMT-06:00
 
         // This is used inorder to mine the genesis block. Once found, we can use the nonce and block hash found to create a valid genesis block
 //        /////////////////////////////////////////////////////////////////
@@ -621,7 +621,7 @@ public:
 //        /////////////////////////////////////////////////////////////////
 
 
-        genesis = CreateGenesisBlock(1524179366, 1, 0x207fffff, 4, 10000 * COIN);
+        genesis = CreateGenesisBlock(1296688602, 1, 0x207fffff, 4, 10000 * COIN);
         consensus.hashGenesisBlock = genesis.GetX16RHash();
 
         assert(consensus.hashGenesisBlock == uint256S("0x0b2c703dc93bb63a36c4e33b85be4855ddbca2ac951a7a0a29b8de0408200a3c "));
